@@ -1,0 +1,27 @@
+{
+  "name": "multi-steps-form",
+  "version": "1.0.0",
+  "main": "expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "@react-native-picker/picker": "^2.7.7",
+    "@react-navigation/native": "^6.1.17",
+    "@react-navigation/stack": "^6.4.0",
+    "dot-prop-immutable": "^2.1.1",
+    "expo": "~51.0.18",
+    "expo-status-bar": "~1.12.1",
+    "formik": "^2.4.6",
+    "react": "18.2.0",
+    "react-native": "0.74.3",
+    "react-native-element-dropdown": "^2.12.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0"
+  },
+  "private": true
+}
