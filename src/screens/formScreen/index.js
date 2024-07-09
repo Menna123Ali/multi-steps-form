@@ -80,6 +80,26 @@ const FormScreen = () => {
     }, 0);
   };
 
+  const isQuestionAnswered = (stepIndex, questionIndex) => {
+    for (let i = 0; i < stepIndex; i++) {
+      const stepQuestions = state.steps[i].questions;
+      for (let j = 0; j < stepQuestions.length; j++) {
+        if (stepQuestions[j].inputs.some((input) => input.answer === null)) {
+          return false;
+        }
+      }
+    }
+    if (stepIndex === currentStep) {
+      for (let i = 0; i < questionIndex; i++) {
+        const question = state.steps[stepIndex].questions[i];
+        if (question.inputs.some((input) => input.answer === null)) {
+          return false;
+        }
+      }
+    }
+    return true;
+  };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
@@ -93,6 +113,7 @@ const FormScreen = () => {
                     style={styles.circleContainer}
                     onPress={() => {
                       setCurrentStep(index);
+
                       scrollViewRef.current.scrollTo({
                         x: 0,
                         y: 0,
@@ -178,6 +199,14 @@ const FormScreen = () => {
                     <View
                       key={index}
                       onLayout={(event) => handleLayout(index, event)}
+                      style={{
+                        opacity: !isQuestionAnswered(currentStep, index)
+                          ? 0.4
+                          : 1,
+                        pointerEvents: !isQuestionAnswered(currentStep, index)
+                          ? "none"
+                          : "auto",
+                      }}
                     >
                       <View
                         style={{
