@@ -6,9 +6,12 @@ import {
   TouchableOpacity,
   Text,
   View,
+  Image,
 } from "react-native";
 import { FormContext } from "../../../store/FormContext";
 import { ACTION_TYPES } from "../../../store/reducer";
+import { imageIconMapping } from "../constants";
+import { grey, lightPrimary, primary } from "../../../styles/colors";
 
 const StepsBar = ({ scrollViewRef }) => {
   const { state, dispatch } = useContext(FormContext);
@@ -23,21 +26,37 @@ const StepsBar = ({ scrollViewRef }) => {
       return stepAnswered + answeredInQuestion;
     }, 0);
   };
-  const handlePressStep = (index) => {
+  const handleStepPress = (index) => {
     dispatch({
       payload: [
         {
           type: ACTION_TYPES.UPDATE_PROP,
-          prop: `state.currentStep`,
+          prop: `currentStep`,
           value: index,
         },
       ],
     });
-    scrollViewRef.current.scrollTo({
+
+    scrollViewRef.current?.scrollTo({
       x: 0,
       y: 0,
       animated: true,
     });
+  };
+  const getIconSource = (item, index) => {
+    const progress =
+      (countAnsweredInputs(item.questions) * 100) / item.questions.length;
+    const isComplete = progress === 100;
+
+    if (state.currentStep === index) {
+      return isComplete
+        ? imageIconMapping[index].complete
+        : imageIconMapping[index].active;
+    } else {
+      return isComplete
+        ? imageIconMapping[index].complete
+        : imageIconMapping[index].default;
+    }
   };
 
   return (
@@ -52,15 +71,22 @@ const StepsBar = ({ scrollViewRef }) => {
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <TouchableOpacity
                   style={styles.circleContainer}
-                  onPress={() => handlePressStep(index)}
+                  onPress={() => handleStepPress(index)}
                 >
                   <View
                     style={[
                       styles.circle,
                       state.currentStep >= index && styles.activeCircle,
+                      (countAnsweredInputs(item.questions) * 100) /
+                        item.questions.length ==
+                        100 && styles.completeCircle,
                     ]}
                   >
-                    <Text>{index + 1}</Text>
+                    <Image
+                      source={getIconSource(item, index)}
+                      style={{ width: 17, height: 17 }}
+                      resizeMode="contain"
+                    />
                   </View>
                 </TouchableOpacity>
 
@@ -71,7 +97,7 @@ const StepsBar = ({ scrollViewRef }) => {
                         StyleSheet.absoluteFill,
                         styles.line,
                         {
-                          backgroundColor: "#3EBDAC",
+                          backgroundColor: primary,
                           width: `${
                             (countAnsweredInputs(item.questions) * 100) /
                             item.questions.length
@@ -100,7 +126,6 @@ const StepsBar = ({ scrollViewRef }) => {
 };
 const screenWidth = Dimensions.get("window").width;
 const stepWidth = (screenWidth * 0.8) / 3;
-
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
@@ -138,45 +163,38 @@ const styles = StyleSheet.create({
     width: 34,
     height: 34,
     borderRadius: 17,
-    backgroundColor: "#e0e0e0",
+    backgroundColor: grey,
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 5, //#CAEDE9
   },
   activeCircle: {
-    backgroundColor: "#CAEDE9",
+    backgroundColor: lightPrimary,
   },
+  completeCircle: { backgroundColor: primary },
   lineContainer: {
     flex: 1,
     height: 4,
     justifyContent: "center",
     alignItems: "center",
-
-    // height: 20,
-    // flexDirection: "row",
-    // width: "100%",
-    backgroundColor: "#F3F4F5",
-    // borderColor: "#000",
-    // borderWidth: 2,
-    // borderRadius: 5,
+    backgroundColor: grey,
   },
   line: {
     height: "100%",
     width: "100%",
-    // backgroundColor: "#F3F4F5",
   },
   activeLine: {
     width: "100%",
-    backgroundColor: "#3EBDAC",
+    backgroundColor: primary,
   },
   label: {
     color: "#9e9e9e",
     marginTop: 5,
     marginHorizontal: -10,
-    // textAlign: "center",
   },
   activeLabel: {
-    color: "#3EBDAC",
+    color: primary,
   },
 });
+
 export default StepsBar;
