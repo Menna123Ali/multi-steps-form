@@ -49,7 +49,7 @@ project-directory/
 
 │ ├── screens/
 
-│ │ ├── formScreen/
+│ │ └── formScreen/
 
 │ │ │ ├── index.js
 
