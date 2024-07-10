@@ -26,6 +26,7 @@ Once the application is running, follow these steps to use the multi-step form:
 1. **Step 1**: Enter personal information.
 2. **Step 2**: Enter income information.
 3. **Step 3**: Enter possessions information and submit the form.
+   
 Only the current question is enabled and upcoming questions are considered "locked".
 
 ## Folder Structure
