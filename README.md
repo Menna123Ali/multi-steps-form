@@ -33,27 +33,45 @@ Only the current question is enabled and upcoming questions are considered "lock
 
 project-directory/
 │
+
 ├── src/
+
 │ ├── assets/
+
 │ │ ├── images/
+
 │ │ │ └── icons/
+
 │ ├── components/
+
 │ ├── navigation/
+
 │ ├── screens/
+
 │ │ ├── formScreen/
+
 │ │ │ ├── index.js
+
 │ │ │ ├── constants.js
+
 │ │ │ └── components/
+
 │ ├── store/
+
 │ │ ├── FormContext.js
+
 │ │ └── reducer.js
+
 │ ├── styles/
+
 │ │ └── colors.js
+
 │ ├── App.js
-│ ├── App.css
-│ └── index.js
+
 │
+
 ├── README.md
+
 └── package.json
 
 ### Explanation:
