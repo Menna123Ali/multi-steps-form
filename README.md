@@ -32,6 +32,7 @@ Only the current question is enabled and upcoming questions are considered "lock
 ## Folder Structure
 
 project-directory/
+
 │
 
 ├── src/
