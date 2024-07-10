@@ -81,7 +81,7 @@ project-directory/
   - **assets/**: Images, fonts, and other static assets used in your application.
 
   - **components/**: Reusable UI components used across different pages or sections of your app.
-  - 
+    
   - **navigation/**: Navigation setup using React Navigation.
 
   - **screens/**: Components representing different screens or views of your application..
@@ -89,6 +89,6 @@ project-directory/
   - **store/**: Global data shared during the entire application.
 
   - **styles/**: Global styles.
-  - 
+    
   - **App.js** and **index.js**: Entry points of your application where you initialize your app and render components.
 
